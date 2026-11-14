@@ -1,0 +1,26 @@
+artifact_path: file:///C:/Users/Rodrigo/Documents/observabilidade_credito/mlruns/1/models/m-89228008c994492d87600dcf48f96202/artifacts
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.skops
+    predict_fn: predict
+    python_version: 3.11.7
+  sklearn:
+    code: null
+    pickled_model: model.skops
+    serialization_format: skops
+    sklearn_version: 1.9.1
+    skops_trusted_types:
+    - numpy.dtype
+    - xgboost.core.Booster
+    - xgboost.sklearn.XGBClassifier
+mlflow_version: 3.17.0
+model_id: m-89228008c994492d87600dcf48f96202
+model_size_bytes: 884084
+model_uuid: m-89228008c994492d87600dcf48f96202
+prompts: null
+run_id: e14aaa54d2af43438d25473eeb23809e
+utc_time_created: '2026-10-11 12:12:50.929678'
