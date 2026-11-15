@@ -13,6 +13,10 @@ Saídas:
 from pathlib import Path
 import sys
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
+
 import pandas as pd
 
 from src import drift_detection, drift_simulation, train_model
@@ -80,9 +84,20 @@ def main(reference_csv: str = 'data/train_reference.csv'):
     log_pipeline_run(experiment_name='monitoring', run_name='drift_check', status='success', metrics=metrics, artifacts=artifacts)
 
     try:
-        from evidently import Report
-        from evidently.presets import DataDriftPreset
+        import importlib
 
+        Report = importlib.import_module('evidently').Report
+        DataDriftPreset = importlib.import_module('evidently.presets').DataDriftPreset
+    except Exception:
+        try:
+            import importlib
+
+            Report = importlib.import_module('evidently.report').Report
+            DataDriftPreset = importlib.import_module('evidently.presets').DataDriftPreset
+        except Exception as e:
+            raise RuntimeError('Não foi possível carregar a API do Evidently no ambiente atual.') from e
+
+    try:
         ref_df = pd.read_csv('data/train_reference.csv')
         prod_df = pd.read_csv(str(out_preds))
         shared_cols = ref_df.columns.intersection(prod_df.columns).tolist()
@@ -96,8 +111,10 @@ def main(reference_csv: str = 'data/train_reference.csv'):
         print('Relatório Evidently salvo em', ev_out)
     except Exception as e:
         try:
-            from evidently.dashboard import Dashboard
-            from evidently.dashboard.tabs import DataDriftTab
+            import importlib
+
+            Dashboard = importlib.import_module('evidently.dashboard').Dashboard
+            DataDriftTab = importlib.import_module('evidently.dashboard.tabs').DataDriftTab
 
             ref_df = pd.read_csv('data/train_reference.csv')
             prod_df = pd.read_csv(str(out_preds))

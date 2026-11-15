@@ -302,7 +302,8 @@ Esses relatórios mostram as variáveis que sofreram maior alteração de distri
 No terminal, execute:
 
 ```powershell
-.venv\Scripts\python.exe -m mlflow ui --backend-store-uri mlruns
+$env:MLFLOW_ALLOW_FILE_STORE = 'true'
+.\.venv\Scripts\python.exe -m mlflow ui --backend-store-uri file:///$PWD/mlruns --default-artifact-root file:///$PWD/mlruns
 ```
 
 Depois abra no navegador:
