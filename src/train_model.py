@@ -4,6 +4,8 @@ Train baseline model and log to MLflow.
 Comentários em português; nomes e API em inglês.
 """
 from pathlib import Path
+import shutil
+
 import pandas as pd
 import mlflow
 import mlflow.sklearn
@@ -20,6 +22,12 @@ from joblib import dump, load
 def train_baseline(train_csv: str, test_csv: str, experiment_name: str = 'baseline'):
     """Treina um modelo baseline e registra no MLflow localmente."""
     Path('models').mkdir(exist_ok=True)
+    mlruns_dir = Path('mlruns')
+    if mlruns_dir.exists():
+        for child in list(mlruns_dir.iterdir()):
+            if child.name.isdigit() and not (child / 'meta.yaml').exists():
+                shutil.rmtree(child, ignore_errors=True)
+
     train = pd.read_csv(train_csv)
     test = pd.read_csv(test_csv)
 
@@ -51,16 +59,9 @@ def train_baseline(train_csv: str, test_csv: str, experiment_name: str = 'baseli
 
         mlflow.log_metric('roc_auc', float(auc))
         mlflow.log_metric('accuracy', float(acc))
-        # Ao salvar modelos que referenciam tipos não-padrão (ex: xgboost),
-        # informar `skops_trusted_types` para evitar erro de tipos não confiáveis.
-        trusted = [
-            "numpy.dtype",
-            "xgboost.core.Booster",
-            "xgboost.sklearn.XGBClassifier",
-        ]
-        mlflow.sklearn.log_model(clf, 'model', skops_trusted_types=trusted)
+        mlflow.sklearn.log_model(clf, 'model')
 
-    # save a local copy for later scoring
+    # salvar modelo local em disco para uso posterior
     local_model_path = Path('models') / 'baseline.pkl'
     dump(clf, local_model_path)
     print(f'Local model saved to {local_model_path}')
