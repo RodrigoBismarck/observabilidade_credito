@@ -1,3 +1,4 @@
+# Ambientes e caches
 .venv/
 __pycache__/
 *.pyc
@@ -5,3 +6,10 @@ __pycache__/
 .mypy_cache/
 .vscode/
 .DS_Store
+
+# Artefatos gerados em runtime
+mlruns/
+logs/
+reports/
+data/*.csv
+models/*.pkl

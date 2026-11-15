@@ -19,6 +19,26 @@ if str(PROJECT_ROOT) not in sys.path:
 
 import pandas as pd
 
+
+def _assert_evidently_compatibility():
+    """Garante que a combinação pandas/evidently seja compatível antes de gerar o relatório."""
+    try:
+        import importlib.metadata as metadata
+
+        evidently_version = metadata.version('evidently')
+    except Exception:
+        return
+
+    if pd.__version__.startswith('3.'):
+        raise RuntimeError(
+            'Incompatibilidade detectada: Evidently 0.7.23 exige pandas < 3.0. '
+            f'Atualmente o ambiente usa pandas {pd.__version__} e evidently {evidently_version}. '
+            'Reinstale as dependências com "python -m pip install -r requirements.txt" e certifique-se de que o ambiente virtual foi recriado.'
+        )
+
+
+_assert_evidently_compatibility()
+
 from src import drift_detection, drift_simulation, train_model
 from src.observability import get_logger, log_pipeline_run
 
