@@ -455,52 +455,14 @@ O projeto inclui também:
 
 ---
 
-## Vídeo STAR
+## 📜 Licença e Autores
 
-A demonstração do projeto em formato STAR pode ser gravada e adicionada ao README com o link final do vídeo.
+🧑‍💻 **Desenvolvido por**  
+Rodrigo Bismarck dos Santos Araujo - RM373585
+Este projeto é apenas para fins educacionais e segue a licença MIT.
 
-Exemplo de estrutura esperada:
-
-- Situation: risco da degradação silenciosa de modelos de crédito no mundo real
-- Task: validar dados, detectar drift e manter compliance
-- Action: uso de Pandera, MLflow, Evidently e simulação de drift
-- Result: relatório de drift apontando a degradação e alerta operacional
-
-Link do vídeo:
-
-```text
-Adicionar link do vídeo final aqui
-```
-
-Exemplo de formato:
-
-```text
-https://youtu.be/SEU_VIDEO_AQUI
-```
-
----
-
-## Como Contribuir
-
-1. Crie uma branch com uma mudança clara.
-2. Mantenha o padrão de código e documentação em português do Brasil.
-3. Execute os scripts principais antes de abrir PR.
-4. Atualize a documentação quando houver mudança de comportamento.
-5. Garanta que o projeto continua executável após as alterações.
-
----
-
-## Contato
-
-Projeto desenvolvido para fins acadêmicos e de demonstração de monitoramento e governança em modelos de risco de crédito.
-
-Se quiser discutir melhorias, extensões ou ajustes de compliance, o ideal é manter o foco em:
-
-- validação de dados;
-- observabilidade;
-- drift;
-- privacidade e LGPD;
-- rastreabilidade de modelos.
+--- 
+📺 Video Método STAR: [https://www.youtube.com/watch?v=36wY_ERa9Ek](https://www.youtube.com/watch?v=Rk7x-LXRI1Y)
 
 ---
 
